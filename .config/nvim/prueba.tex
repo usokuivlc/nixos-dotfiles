@@ -1,0 +1,49 @@
+\documentclass[12pt,a4paper]{article}
+
+% ================== PAQUETES BÁSICOS ==================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+\usepackage[left=1.5cm, right=1.5cm, top=2cm, bottom=2cm]{geometry}
+\usepackage[dvipsnames]{xcolor}
+
+% ================== MATEMÁTICAS ==================
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+
+% ================== ENTORNOS ==================
+\newtheorem{defs}{Definición}
+\newtheorem{obs}{Observación}
+\newtheorem{teo}{Teorema}
+\newtheorem{prop}{Proposición}
+\newtheorem{cor}{Corolario}
+
+\newenvironment{dem}{%
+    \par\noindent\textbf{Demostración. }\normalfont%
+}{\hfill$\square$\par}
+
+% ================== FIGURAS Y OTROS ==================
+\usepackage{graphicx}
+\usepackage{nameref}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+
+% ================== ESTILO ==================
+\numberwithin{equation}{section}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\title{Simón}
+\author{José Luis Ocejo}
+\date{}
+\begin{document}
+Esto es una prueba pitera nomás porque sí. Sea \( f: \mathbb{R}\to \mathbb{R} \) una función continua y \[
+    \int_{a}^{b} \left| \dfrac{f_{n+1}}{f_{n}} \right| \text{ acotada}
+\]	
+
+Consideremos \( \alpha_{2} \) positiva. Sea ahora \( f: \mathbb{C} \to \mathbb{C} \) una función bi-holomorfa \( \lambda, \alpha, \eta, \nu, \mu, \varepsilon, \psi, \phi \) 
+\end{document}
