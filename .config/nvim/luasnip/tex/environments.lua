@@ -351,5 +351,5 @@ local function add_env_variants(trigger, environment, label_prefix)
     end
 end
 
-add_env_variants("eqn")
+add_env_variants("eqn", "equation", "eq")
 return snippets
