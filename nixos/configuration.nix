@@ -8,14 +8,13 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./mathematica.nix
+     # ./mathematica.nix
     ];
 
   # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
-
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -38,6 +37,8 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
+
+  services.libinput.touchpad.naturalScrolling = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
@@ -128,6 +129,7 @@
   feh
   picom
   fastfetch
+  brightnessctl 
 
   # LaTeX
   zathura
@@ -149,7 +151,7 @@
 
   ];
 
-  services.fwupd.enable = false;
+  services.fwupd.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

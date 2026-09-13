@@ -13,7 +13,7 @@ myTerm = "alacritty"
 
 @hook.subscribe.startup_once
 def autostart():
-  subprocess.Popen(["xfsettingsd", "--replace"])
+    subprocess.Popen(["xfsettingsd", "--replace"])
 
 subprocess.Popen(["picom", "--backend=xrender"])
 
@@ -75,6 +75,39 @@ keys = [
         ),
         desc="Screenshot",
     ),
+    Key(
+        [],
+        "XF86MonBrightnessUp",
+        lazy.spawn("brightnessctl set 5%+"),
+        desc="Increase brightness",
+    ),
+
+    Key(
+        [],
+        "XF86MonBrightnessDown",
+        lazy.spawn("brightnessctl set 5%-"),
+        desc="Decrease brightness",
+    ),
+    Key(
+        [],
+        "XF86AudioRaiseVolume",
+        lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
+        desc="Increase volume",
+    ),
+
+    Key(
+        [],
+        "XF86AudioLowerVolume",
+        lazy.spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+        desc="Decrease volume",
+    ),
+
+    Key(
+        [],
+        "XF86AudioMute",
+        lazy.spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+        desc="Mute audio",
+    ),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -132,6 +165,18 @@ colors = [
 
 # helper in case your colors are ["#hex", "#hex"]
 def C(x): return x[0] if isinstance(x, (list, tuple)) else x
+
+def get_volume():
+    result = subprocess.check_output(
+        ["wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"],
+        text=True,
+    )
+
+    if "MUTED" in result:
+        return "Vol: M"
+
+    volume = int(float(result.split()[1]) * 100)
+    return f"Vol: {volume}%"
 
 layout_theme = {
     "border_width" : 2,
@@ -227,10 +272,20 @@ screens = [
                     format = 'Mem: {MemUsed:.0f}{mm}',
                 ),
                 sep,
-                widget.Volume(
-                    foreground = colors[7],
-                    padding = 8, 
-                    fmt = 'Vol: {}',
+                widget.GenPollText(
+                    func=get_volume,
+                    update_interval=1,
+                    foreground="#bb9af7",
+                    padding=8,
+                ),
+                sep,
+                widget.Battery(
+                    format="Bat: {percent:2.0%}",
+                    foreground="#e0af68",
+                    padding=8,
+                    update_interval=30,
+                    low_percentage=0.15,
+                    low_foreground="#f7768e",
                 ),
                 sep,
                 widget.Clock(
