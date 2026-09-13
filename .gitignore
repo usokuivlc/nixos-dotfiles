@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.pdf
+
+# Misc
+.DS_Store
