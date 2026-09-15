@@ -20,63 +20,66 @@ local snippets = {}
 -- ===============================
 
 local greek_letters = {
-    a = "\\alpha",
-    b = "\\beta",
+    a   = "\\alpha",
+    b   = "\\beta",
+    g   = "\\gamma",
+    G   = "\\Gamma",
+    d   = "\\delta",
+    D   = "\\Delta",
 
-    g = "\\gamma",
-    G = "\\Gamma",
+    e   = "\\varepsilon",
+    ep  = "\\epsilon",
+    et  = "\\eta",
 
-    d = "\\delta",
-    D = "\\Delta",
+    z   = "\\zeta",
 
-    e = "\\varepsilon",
-    et = "\\eta",
+    th  = "\\theta",
+    Th  = "\\Theta",
 
-    z = "\\zeta",
+    i   = "\\iota",
+    k   = "\\kappa",
 
-    th = "\\theta",
-    Th = "\\Theta",
+    l   = "\\lambda",
+    L   = "\\Lambda",
 
-    i = "\\iota",
-    k = "\\kappa",
+    m   = "\\mu",
+    n   = "\\nu",
 
-    l = "\\lambda",
-    L = "\\Lambda",
+    x   = "\\xi",
+    X   = "\\Xi",
 
-    m = "\\mu",
-    n = "\\nu",
+    p   = "\\pi",
+    P   = "\\Pi",
 
-    x = "\\xi",
-    X = "\\Xi",
+    r   = "\\rho",
 
-    p = "\\pi",
-    P = "\\Pi",
+    s   = "\\sigma",
+    S   = "\\Sigma",
 
-    r = "\\rho",
+    t   = "\\tau",
 
-    s = "\\sigma",
-    S = "\\Sigma",
-
-    t = "\\tau",
-
-    ph = "\\phi",
+    ph  = "\\phi",
     vph = "\\varphi",
-    Ph = "\\Phi",
+    Ph  = "\\Phi",
 
-    ps = "\\psi",
-    Ps = "\\Psi",
+    ps  = "\\psi",
+    Ps  = "\\Psi",
 
-    o = "\\omega",
-    O = "\\Omega",
+    o   = "\\omega",
+    O   = "\\Omega",
 
-    c = "\\chi",
-
-    y = "\\upsilon",
-    Y = "\\Upsilon",
+    c   = "\\chi",
 }
 
-for key, value in pairs(greek_letters) do
-    table.insert(snippets, s({ trig = key }, t(value), math))
+for trigger, command in pairs(greek_letters) do
+    table.insert(
+	snippets,
+	s(
+	    { trig = trigger .. "gr" },
+	    t(command),
+	    math
+	)
+    )
 end
 
 -- ===============================
@@ -86,33 +89,33 @@ end
 table.insert(
     snippets,
     s(
-        { trig = "([A-Z])bb", regTrig = true },
-        f(function(_, snip)
-            return "\\mathbb{" .. snip.captures[1] .. "}"
-        end),
-        math
+	{ trig = "([A-Z])bb", regTrig = true },
+	f(function(_, snip)
+	    return "\\mathbb{" .. snip.captures[1] .. "}"
+	end),
+	math
     )
 )
 
 table.insert(
     snippets,
     s(
-        { trig = "([A-Z])cal", regTrig = true },
-        f(function(_, snip)
-            return "\\mathcal{" .. snip.captures[1] .. "}"
-        end),
-        math
+	{ trig = "([A-Z])cal", regTrig = true },
+	f(function(_, snip)
+	    return "\\mathcal{" .. snip.captures[1] .. "}"
+	end),
+	math
     )
 )
 
 table.insert(
     snippets,
     s(
-        { trig = "([A-Z])scr", regTrig = true },
-        f(function(_, snip)
-            return "\\mathscr{" .. snip.captures[1] .. "}"
-        end),
-        math
+	{ trig = "([A-Z])scr", regTrig = true },
+	f(function(_, snip)
+	    return "\\mathscr{" .. snip.captures[1] .. "}"
+	end),
+	math
     )
 )
 
@@ -123,23 +126,23 @@ table.insert(
 table.insert(
     snippets,
     s(
-        { trig = "sqrt" },
-        fmta("\\sqrt{<>}", {
-            i(1),
-        }),
-        math
+	{ trig = "sqrt" },
+	fmta("\\sqrt{<>}", {
+	    i(1),
+	}),
+	math
     )
 )
 
 table.insert(
     snippets,
     s(
-        { trig = "xrt" },
-        fmta("\\sqrt[<>]{<>}", {
-            i(1),
-            i(2),
-        }),
-        math
+	{ trig = "xrt" },
+	fmta("\\sqrt[<>]{<>}", {
+	    i(1),
+	    i(2),
+	}),
+	math
     )
 )
 
@@ -152,11 +155,11 @@ table.insert(
 
 local function inverse_trig(name)
     return s(
-        { trig = "a" .. name },
-        fmta("\\arc" .. name .. "{<>}", {
-            i(1),
-        }),
-        math
+	{ trig = "a" .. name },
+	fmta("\\arc" .. name .. "{<>}", {
+	    i(1),
+	}),
+	math
     )
 end
 
